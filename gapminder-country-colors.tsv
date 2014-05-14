@@ -1,0 +1,143 @@
+continent	country	color
+Africa	Nigeria	#7F3B08
+Africa	Egypt	#833D07
+Africa	Ethiopia	#873F07
+Africa	South Africa	#8B4107
+Africa	Congo, Dem. Rep.	#8F4407
+Africa	Morocco	#934607
+Africa	Algeria	#974807
+Africa	Sudan	#9B4A06
+Africa	Tanzania	#9F4D06
+Africa	Kenya	#A34F06
+Africa	Mozambique	#A75106
+Africa	Uganda	#AB5406
+Africa	Ghana	#AF5606
+Africa	Cameroon	#B35806
+Africa	Madagascar	#B75C07
+Africa	Burkina Faso	#BA5F08
+Africa	Angola	#BE6209
+Africa	Mali	#C2650A
+Africa	Tunisia	#C5690B
+Africa	Niger	#C96C0C
+Africa	Zimbabwe	#CC6F0D
+Africa	Cote d'Ivoire	#D0730F
+Africa	Malawi	#D37610
+Africa	Senegal	#D77911
+Africa	Chad	#DA7D12
+Africa	Zambia	#DE8013
+Africa	Guinea	#E18417
+Africa	Rwanda	#E3881D
+Africa	Somalia	#E58C23
+Africa	Burundi	#E79029
+Africa	Sierra Leone	#EA952F
+Africa	Benin	#EC9936
+Africa	Eritrea	#EE9D3C
+Africa	Central African Republic	#F1A142
+Africa	Togo	#F3A548
+Africa	Mauritania	#F5AA4E
+Africa	Libya	#F7AE55
+Africa	Liberia	#FAB25B
+Africa	Congo, Rep.	#FCB661
+Africa	Lesotho	#FDBA67
+Africa	Guinea-Bissau	#FDBD6E
+Africa	Mauritius	#FDC074
+Africa	Namibia	#FDC37B
+Africa	Botswana	#FDC681
+Africa	Gabon	#FDCA88
+Africa	Swaziland	#FDCD8E
+Africa	Gambia	#FDD095
+Africa	Reunion	#FDD39B
+Africa	Equatorial Guinea	#FDD6A2
+Africa	Comoros	#FDD9A8
+Africa	Djibouti	#FDDCAF
+Africa	Sao Tome and Principe	#FEE0B6
+Americas	United States	#A50026
+Americas	Brazil	#AD0826
+Americas	Mexico	#B51026
+Americas	Argentina	#BE1826
+Americas	Canada	#C62026
+Americas	Colombia	#CE2726
+Americas	Peru	#D73027
+Americas	Chile	#DB3A2B
+Americas	Cuba	#E04430
+Americas	Venezuela	#E54E35
+Americas	Ecuador	#EA5839
+Americas	Haiti	#EF623E
+Americas	Guatemala	#F46D43
+Americas	Bolivia	#F57748
+Americas	Dominican Republic	#F7824D
+Americas	Uruguay	#F88D51
+Americas	Puerto Rico	#FA9856
+Americas	El Salvador	#FBA35B
+Americas	Paraguay	#FDAE61
+Americas	Honduras	#FDB668
+Americas	Jamaica	#FDBE70
+Americas	Nicaragua	#FDC778
+Americas	Panama	#FDCF80
+Americas	Costa Rica	#FDD788
+Americas	Trinidad and Tobago	#FEE090
+Asia	China	#40004B
+Asia	India	#460552
+Asia	Japan	#4D0A59
+Asia	Indonesia	#540F60
+Asia	Bangladesh	#5B1567
+Asia	Pakistan	#611A6D
+Asia	Vietnam	#681F75
+Asia	Philippines	#6F247B
+Asia	Thailand	#762A83
+Asia	Korea, Rep.	#7A3288
+Asia	Myanmar	#7E3B8C
+Asia	Iran	#834492
+Asia	Nepal	#874D96
+Asia	Korea, Dem. Rep.	#8B559B
+Asia	Taiwan	#905EA1
+Asia	Afghanistan	#9467A5
+Asia	Sri Lanka	#9970AB
+Asia	Malaysia	#9E76AF
+Asia	Iraq	#A37DB3
+Asia	Yemen, Rep.	#A883B8
+Asia	Cambodia	#AD8ABD
+Asia	Saudi Arabia	#B291C1
+Asia	Syria	#B797C6
+Asia	Hong Kong, China	#BC9ECA
+Asia	Israel	#C2A5CF
+Asia	Lebanon	#C6AAD2
+Asia	Singapore	#CBB0D5
+Asia	West Bank and Gaza	#CFB6D8
+Asia	Mongolia	#D4BCDB
+Asia	Jordan	#D9C2DE
+Asia	Oman	#DDC8E1
+Asia	Kuwait	#E2CEE4
+Asia	Bahrain	#E7D4E8
+Europe	Germany	#276419
+Europe	United Kingdom	#2C6A1A
+Europe	Italy	#31701B
+Europe	France	#36771C
+Europe	Spain	#3B7D1D
+Europe	Poland	#41831E
+Europe	Turkey	#468A1F
+Europe	Romania	#4B9020
+Europe	Netherlands	#529624
+Europe	Hungary	#599C28
+Europe	Czech Republic	#5FA12D
+Europe	Belgium	#66A731
+Europe	Portugal	#6DAD35
+Europe	Greece	#74B33A
+Europe	Bulgaria	#7BB93E
+Europe	Sweden	#82BE45
+Europe	Austria	#8AC34F
+Europe	Serbia	#92C858
+Europe	Switzerland	#9ACD62
+Europe	Denmark	#A2D26B
+Europe	Finland	#AAD875
+Europe	Croatia	#B2DD7E
+Europe	Slovak Republic	#B9E188
+Europe	Norway	#BFE492
+Europe	Ireland	#C6E79C
+Europe	Bosnia and Herzegovina	#CCE9A7
+Europe	Slovenia	#D2ECB1
+Europe	Albania	#D9EFBB
+Europe	Montenegro	#DFF2C5
+Europe	Iceland	#E6F5D0
+Oceania	Australia	#313695
+Oceania	New Zealand	#4575B4
