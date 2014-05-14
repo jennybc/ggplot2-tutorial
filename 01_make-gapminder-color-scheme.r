@@ -94,6 +94,6 @@ par(op)
 write.table(country_colors, "gapminder-country-colors.tsv",
             quote = FALSE, sep = "\t", row.names = FALSE)
 
-write.table(cDat, "gapminder-continent-colors.txt",
+write.table(cDat, "gapminder-continent-colors.tsv",
             quote = FALSE, sep = "\t", row.names = FALSE)
 
