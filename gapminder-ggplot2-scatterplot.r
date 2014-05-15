@@ -23,12 +23,13 @@ p + geom_point()
 
 #' log transformation ... quick and dirty
 ggplot(gDat, aes(x = log10(gdpPercap), y = lifeExp)) + geom_point()
-p + geom_point() + scale_x_log10() # a bit better
+#' a better way to log transform
+p + geom_point() + scale_x_log10()
 
 #' let's make that stick
 p <- p + scale_x_log10()
-#' common workflow: gradually build up the plot you want
-#' re-define the object 'p' as you develop "keeper" commands
+#' common workflow: gradually build up the plot you want  
+#' re-define the object 'p' as you develop "keeper" commands  
 
 #' convey continent by color: MAP continent variable to aesthetic color
 p + geom_point(aes(color = continent))
@@ -51,15 +52,15 @@ p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent)
 p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent) +
   geom_smooth(lwd = 2, se = FALSE)
 
-#' exercises:
+#' exercises:  
 
-#' plot lifeExp against year
+#' * plot lifeExp against year  
 
-#' make mini-plots, split out by continent
+#' * make mini-plots, split out by continent  
 
-#' add a fitted smooth and/or linear regression, w/ or w/o facetting
+#' * add a fitted smooth and/or linear regression, w/ or w/o facetting  
 
-#' other ideas?
+#' * other ideas?  
 
 
 
@@ -83,8 +84,8 @@ y + geom_smooth(se = FALSE, lwd = 2) +
 y + geom_smooth(se = FALSE, lwd = 2) +
   facet_wrap(~ continent)
 
-#' last bit on scatterplots
-#' how can we "connect the dots" for one country?
+#' last bit on scatterplots  
+#' how can we "connect the dots" for one country?  
 #' i.e. make a spaghetti plot?
 y + facet_wrap(~ continent) + geom_line() # uh, no
 y + facet_wrap(~ continent) + geom_line(aes(group = country)) # yes!
@@ -93,7 +94,7 @@ y + facet_wrap(~ continent) + geom_line(aes(group = country)) +
 
 #' note about subsetting data
 
-#' sadly, ggplot() does not have a 'subset =' argument
+#' sadly, ggplot() does not have a 'subset =' argument  
 #' so do that 'on the fly' with subset(..., subset = ...)
 ggplot(subset(gDat, country == "Zimbabwe"),
        aes(x = year, y = lifeExp)) + geom_line() + geom_point()
