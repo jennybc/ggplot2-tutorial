@@ -40,3 +40,5 @@ ggplot(gDat, aes(x = continent, y = lifeExp)) +
 ggplot(gDat, aes(reorder(x = continent, lifeExp), y = lifeExp)) + 
   geom_jitter(position = position_jitter(width = 0.1), alpha = 1/4) +
   stat_summary(fun.y = median, colour = "red", geom = "point", size = 5)
+
+sessionInfo()

@@ -110,4 +110,8 @@ ggplot(subset(gDat, country %in% jCountries),
        aes(x = year, y = lifeExp, color = reorder(country, -1 * lifeExp, max))) +
   geom_line() + geom_point()
 
+#' another approach to overplotting
+#' ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) +
+ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) + scale_x_log10() + geom_bin2d()
+
 sessionInfo()
