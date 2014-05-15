@@ -16,7 +16,9 @@ We do live coding together. Indicative content:
   * Stripplots: [demo](../master/gapminder-ggplot2-stripplot.md) | [R source](../master/gapminder-ggplot2-stripplot.r)
   * Exploring distribution of a quantitative variable: [demo](../master/gapminder-ggplot2-univariate-quantitative.md) | [R source](../master/gapminder-ggplot2-univariate-quantitative.r)
   * Drawing bars: [demo](../master/gapminder-ggplot2-univariate-factor.md) | [R source](../master/gapminder-ggplot2-univariate-factor.r)
+  * Change overall look and feel via themes: [demo](../master/gapminder-ggplot2-themes.md) | [R source](../master/gapminder-ggplot2-themes.r)
   * Bubble and line plots, lots of customization: [demo](../master/gapminder-ggplot2-shock-and-awe.md) | [R source](../master/gapminder-ggplot2-shock-and-awe.r)
+  
   
 Links and references
 
@@ -32,7 +34,6 @@ Links and references
   
 To add:
 
-  * themes?
   * writing figure to file
   
 
