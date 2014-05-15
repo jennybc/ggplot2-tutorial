@@ -61,13 +61,16 @@ log transformation ... quick and dirty
 ggplot(gDat, aes(x = log10(gdpPercap), y = lifeExp)) + geom_point()
 ```
 
-![plot of chunk unnamed-chunk-4](figure/scatterplot-unnamed-chunk-41.png) 
+![plot of chunk unnamed-chunk-4](figure/scatterplot-unnamed-chunk-4.png) 
+
+a better way to log transform
+
 
 ```r
-p + geom_point() + scale_x_log10() # a bit better
+p + geom_point() + scale_x_log10()
 ```
 
-![plot of chunk unnamed-chunk-4](figure/scatterplot-unnamed-chunk-42.png) 
+![plot of chunk unnamed-chunk-5](figure/scatterplot-unnamed-chunk-5.png) 
 
 let's make that stick
 
@@ -76,8 +79,8 @@ let's make that stick
 p <- p + scale_x_log10()
 ```
 
-common workflow: gradually build up the plot you want
-re-define the object 'p' as you develop "keeper" commands
+common workflow: gradually build up the plot you want  
+re-define the object 'p' as you develop "keeper" commands  
 convey continent by color: MAP continent variable to aesthetic color
 
 
@@ -85,14 +88,14 @@ convey continent by color: MAP continent variable to aesthetic color
 p + geom_point(aes(color = continent))
 ```
 
-![plot of chunk unnamed-chunk-6](figure/scatterplot-unnamed-chunk-61.png) 
+![plot of chunk unnamed-chunk-7](figure/scatterplot-unnamed-chunk-71.png) 
 
 ```r
 ggplot(gDat, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   geom_point() + scale_x_log10() # in full detail, up to now
 ```
 
-![plot of chunk unnamed-chunk-6](figure/scatterplot-unnamed-chunk-62.png) 
+![plot of chunk unnamed-chunk-7](figure/scatterplot-unnamed-chunk-72.png) 
 
 address overplotting: SET alpha transparency and size to a value
 
@@ -101,7 +104,7 @@ address overplotting: SET alpha transparency and size to a value
 p + geom_point(alpha = (1/3), size = 3)
 ```
 
-![plot of chunk unnamed-chunk-7](figure/scatterplot-unnamed-chunk-7.png) 
+![plot of chunk unnamed-chunk-8](figure/scatterplot-unnamed-chunk-8.png) 
 
 add a fitted curve or line
 
@@ -114,7 +117,7 @@ p + geom_point() + geom_smooth()
 ## geom_smooth: method="auto" and size of largest group is >=1000, so using gam with formula: y ~ s(x, bs = "cs"). Use 'method = x' to change the smoothing method.
 ```
 
-![plot of chunk unnamed-chunk-8](figure/scatterplot-unnamed-chunk-81.png) 
+![plot of chunk unnamed-chunk-9](figure/scatterplot-unnamed-chunk-91.png) 
 
 ```r
 p + geom_point() + geom_smooth(lwd = 3, se = FALSE)
@@ -124,13 +127,13 @@ p + geom_point() + geom_smooth(lwd = 3, se = FALSE)
 ## geom_smooth: method="auto" and size of largest group is >=1000, so using gam with formula: y ~ s(x, bs = "cs"). Use 'method = x' to change the smoothing method.
 ```
 
-![plot of chunk unnamed-chunk-8](figure/scatterplot-unnamed-chunk-82.png) 
+![plot of chunk unnamed-chunk-9](figure/scatterplot-unnamed-chunk-92.png) 
 
 ```r
 p + geom_point() + geom_smooth(lwd = 3, se = FALSE, method = "lm")
 ```
 
-![plot of chunk unnamed-chunk-8](figure/scatterplot-unnamed-chunk-83.png) 
+![plot of chunk unnamed-chunk-9](figure/scatterplot-unnamed-chunk-93.png) 
 
 revive our interest in continents!
 
@@ -143,7 +146,7 @@ p + aes(color = continent) + geom_point() + geom_smooth(lwd = 3, se = FALSE)
 ## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
 ```
 
-![plot of chunk unnamed-chunk-9](figure/scatterplot-unnamed-chunk-9.png) 
+![plot of chunk unnamed-chunk-10](figure/scatterplot-unnamed-chunk-10.png) 
 
 facetting: another way to exploit a factor
 
@@ -152,7 +155,7 @@ facetting: another way to exploit a factor
 p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent)
 ```
 
-![plot of chunk unnamed-chunk-10](figure/scatterplot-unnamed-chunk-101.png) 
+![plot of chunk unnamed-chunk-11](figure/scatterplot-unnamed-chunk-111.png) 
 
 ```r
 p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent) +
@@ -167,13 +170,13 @@ p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent) +
 ## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
 ```
 
-![plot of chunk unnamed-chunk-10](figure/scatterplot-unnamed-chunk-102.png) 
+![plot of chunk unnamed-chunk-11](figure/scatterplot-unnamed-chunk-112.png) 
 
-exercises:
-plot lifeExp against year
-make mini-plots, split out by continent
-add a fitted smooth and/or linear regression, w/ or w/o facetting
-other ideas?
+exercises:  
+* plot lifeExp against year  
+* make mini-plots, split out by continent  
+* add a fitted smooth and/or linear regression, w/ or w/o facetting  
+* other ideas?  
 plot lifeExp against year
 
 
@@ -181,7 +184,7 @@ plot lifeExp against year
 (y <- ggplot(gDat, aes(x = year, y = lifeExp)) + geom_point())
 ```
 
-![plot of chunk unnamed-chunk-11](figure/scatterplot-unnamed-chunk-11.png) 
+![plot of chunk unnamed-chunk-12](figure/scatterplot-unnamed-chunk-12.png) 
 
 make mini-plots, split out by continent
 
@@ -190,7 +193,7 @@ make mini-plots, split out by continent
 y + facet_wrap(~ continent)
 ```
 
-![plot of chunk unnamed-chunk-12](figure/scatterplot-unnamed-chunk-12.png) 
+![plot of chunk unnamed-chunk-13](figure/scatterplot-unnamed-chunk-13.png) 
 
 add a fitted smooth and/or linear regression, w/ or w/o facetting
 
@@ -204,7 +207,7 @@ y + geom_smooth(se = FALSE, lwd = 2) +
 ## geom_smooth: method="auto" and size of largest group is >=1000, so using gam with formula: y ~ s(x, bs = "cs"). Use 'method = x' to change the smoothing method.
 ```
 
-![plot of chunk unnamed-chunk-13](figure/scatterplot-unnamed-chunk-131.png) 
+![plot of chunk unnamed-chunk-14](figure/scatterplot-unnamed-chunk-141.png) 
 
 ```r
 y + geom_smooth(se = FALSE, lwd = 2) +
@@ -219,10 +222,10 @@ y + geom_smooth(se = FALSE, lwd = 2) +
 ## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
 ```
 
-![plot of chunk unnamed-chunk-13](figure/scatterplot-unnamed-chunk-132.png) 
+![plot of chunk unnamed-chunk-14](figure/scatterplot-unnamed-chunk-142.png) 
 
-last bit on scatterplots
-how can we "connect the dots" for one country?
+last bit on scatterplots  
+how can we "connect the dots" for one country?  
 i.e. make a spaghetti plot?
 
 
@@ -230,13 +233,13 @@ i.e. make a spaghetti plot?
 y + facet_wrap(~ continent) + geom_line() # uh, no
 ```
 
-![plot of chunk unnamed-chunk-14](figure/scatterplot-unnamed-chunk-141.png) 
+![plot of chunk unnamed-chunk-15](figure/scatterplot-unnamed-chunk-151.png) 
 
 ```r
 y + facet_wrap(~ continent) + geom_line(aes(group = country)) # yes!
 ```
 
-![plot of chunk unnamed-chunk-14](figure/scatterplot-unnamed-chunk-142.png) 
+![plot of chunk unnamed-chunk-15](figure/scatterplot-unnamed-chunk-152.png) 
 
 ```r
 y + facet_wrap(~ continent) + geom_line(aes(group = country)) +
@@ -251,10 +254,10 @@ y + facet_wrap(~ continent) + geom_line(aes(group = country)) +
 ## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
 ```
 
-![plot of chunk unnamed-chunk-14](figure/scatterplot-unnamed-chunk-143.png) 
+![plot of chunk unnamed-chunk-15](figure/scatterplot-unnamed-chunk-153.png) 
 
 note about subsetting data
-sadly, ggplot() does not have a 'subset =' argument
+sadly, ggplot() does not have a 'subset =' argument  
 so do that 'on the fly' with subset(..., subset = ...)
 
 
@@ -263,7 +266,7 @@ ggplot(subset(gDat, country == "Zimbabwe"),
        aes(x = year, y = lifeExp)) + geom_line() + geom_point()
 ```
 
-![plot of chunk unnamed-chunk-15](figure/scatterplot-unnamed-chunk-15.png) 
+![plot of chunk unnamed-chunk-16](figure/scatterplot-unnamed-chunk-16.png) 
 
 ```r
 sessionInfo()
