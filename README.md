@@ -12,7 +12,7 @@ There are some slides.
   
 We do live coding together. Indicative content:
 
-  * Scatterplots: [demo](../gapminder-ggplot2-scatterplot.md) | [R source](../gapminder-ggplot2-scatterplot.r)
+  * Scatterplots: [demo](../master/gapminder-ggplot2-scatterplot.md) | [R source](../master/gapminder-ggplot2-scatterplot.r)
   
 Links and references
 
