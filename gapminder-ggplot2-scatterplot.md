@@ -268,6 +268,29 @@ ggplot(subset(gDat, country == "Zimbabwe"),
 
 ![plot of chunk unnamed-chunk-16](figure/scatterplot-unnamed-chunk-16.png) 
 
+let just look at four countries
+
+
+```r
+jCountries <- c("Canada", "Rwanda", "Cambodia", "Mexico")
+ggplot(subset(gDat, country %in% jCountries),
+       aes(x = year, y = lifeExp, color = country)) + geom_line() + geom_point()
+```
+
+![plot of chunk unnamed-chunk-17](figure/scatterplot-unnamed-chunk-17.png) 
+
+when you really care, make your legend easy to navigate  
+this means visual order = data order = factor level order
+
+
+```r
+ggplot(subset(gDat, country %in% jCountries),
+       aes(x = year, y = lifeExp, color = reorder(country, -1 * lifeExp, max))) +
+  geom_line() + geom_point()
+```
+
+![plot of chunk unnamed-chunk-18](figure/scatterplot-unnamed-chunk-18.png) 
+
 ```r
 sessionInfo()
 ```
@@ -288,8 +311,8 @@ sessionInfo()
 ## loaded via a namespace (and not attached):
 ##  [1] colorspace_1.2-4 digest_0.6.4     evaluate_0.5.5   formatR_0.10    
 ##  [5] grid_3.1.0       gtable_0.1.2     labeling_0.2     lattice_0.20-29 
-##  [9] markdown_0.6.5   MASS_7.3-33      Matrix_1.1-3     munsell_0.4.2   
-## [13] plyr_1.8.1       proto_0.3-10     Rcpp_0.11.1      reshape2_1.4    
-## [17] rmarkdown_0.1.94 scales_0.2.4     stringr_0.6.2    tools_3.1.0
+##  [9] MASS_7.3-33      Matrix_1.1-3     munsell_0.4.2    plyr_1.8.1      
+## [13] proto_0.3-10     Rcpp_0.11.1      reshape2_1.4     scales_0.2.4    
+## [17] stringr_0.6.2    tools_3.1.0
 ```
 
