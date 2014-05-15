@@ -99,4 +99,15 @@ y + facet_wrap(~ continent) + geom_line(aes(group = country)) +
 ggplot(subset(gDat, country == "Zimbabwe"),
        aes(x = year, y = lifeExp)) + geom_line() + geom_point()
 
+#' let just look at four countries
+jCountries <- c("Canada", "Rwanda", "Cambodia", "Mexico")
+ggplot(subset(gDat, country %in% jCountries),
+       aes(x = year, y = lifeExp, color = country)) + geom_line() + geom_point()
+
+#' when you really care, make your legend easy to navigate  
+#' this means visual order = data order = factor level order
+ggplot(subset(gDat, country %in% jCountries),
+       aes(x = year, y = lifeExp, color = reorder(country, -1 * lifeExp, max))) +
+  geom_line() + geom_point()
+
 sessionInfo()
