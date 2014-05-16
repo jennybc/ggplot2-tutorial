@@ -8,7 +8,7 @@ Offered
   
 There are some slides.
 
-  * Slides as PDF *not here yet!*
+  * [Slides as PDF](../master/ggplot2-tutorial-slides.pdf)
   
 We do live coding together. Indicative content:
 
