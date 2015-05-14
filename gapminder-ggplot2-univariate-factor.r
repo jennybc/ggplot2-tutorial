@@ -1,6 +1,13 @@
+#' ---
+#' author: "Jenny Bryan"
+#' output:
+#'   html_document:
+#'     keep_md: TRUE
+#' ---
+
 #+ setup, include = FALSE
 library(knitr)
-opts_chunk$set(fig.path = 'figure/uni-factor-')
+opts_chunk$set(fig.path = 'figure/uni-factor-', error = TRUE)
 
 #' Note: this HTML is made by applying `knitr::spin()` to an R script. So the
 #' narrative is very minimal.
@@ -8,20 +15,21 @@ opts_chunk$set(fig.path = 'figure/uni-factor-')
 library(ggplot2)
 
 #' pick a way to load the data
-gdURL <- "http://tiny.cc/gapminder"
-gDat <- read.delim(file = gdURL) 
-gDat <- read.delim("gapminderDataFiveYear.tsv")
-str(gDat)
+#gdURL <- "http://tiny.cc/gapminder"
+#gapminder <- read.delim(file = gdURL) 
+#gapminder <- read.delim("gapminderDataFiveYear.tsv")
+library(gapminder)
+str(gapminder)
 
 #' bar charts  
 #' consider: no. of observations for each continent
-table(gDat$continent)
+table(gapminder$continent)
 
 #' this works because default stat for geom_bar() is "bin"
-ggplot(gDat, aes(x = continent)) + geom_bar()
+ggplot(gapminder, aes(x = continent)) + geom_bar()
 
 #' let's reorder the continents based on frequency
-p <- ggplot(gDat, aes(x = reorder(continent, continent, length)))
+p <- ggplot(gapminder, aes(x = reorder(continent, continent, length)))
 p + geom_bar()
 
 #' would you rather the bars run horizontally?
@@ -32,7 +40,7 @@ p + geom_bar(width = 0.05) + coord_flip()
 
 #' consider a scenario where you DON'T want the default "bin" stat, i.e. the bar
 #' length or height already exists as a variable
-(jDat <- as.data.frame(with(gDat, table(continent, deparse.level = 2))))
+(jDat <- as.data.frame(with(gapminder, table(continent, deparse.level = 2))))
 
 #' this simple call no longer works, because we have pre-tabulated
 ggplot(jDat, aes(x = continent)) + geom_bar()

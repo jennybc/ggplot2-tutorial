@@ -1,6 +1,13 @@
+#' ---
+#' author: "Jenny Bryan"
+#' output:
+#'   html_document:
+#'     keep_md: TRUE
+#' ---
+
 #+ setup, include = FALSE
 library(knitr)
-opts_chunk$set(fig.path = 'figure/themes-')
+opts_chunk$set(fig.path = 'figure/themes-', error = TRUE)
 
 #' Note: this HTML is made by applying `knitr::spin()` to an R script. So the
 #' narrative is very minimal.
@@ -9,13 +16,14 @@ library(ggplot2)
 library(ggthemes)
 
 #' pick a way to load the data
-gdURL <- "http://tiny.cc/gapminder"
-gDat <- read.delim(file = gdURL) 
-gDat <- read.delim("gapminderDataFiveYear.tsv")
-str(gDat)
+#gdURL <- "http://tiny.cc/gapminder"
+#gapminder <- read.delim(file = gdURL) 
+#gapminder <- read.delim("gapminderDataFiveYear.tsv")
+library(gapminder)
+str(gapminder)
 
 #' revisit a plot from earlier
-p <- ggplot(gDat, aes(x = gdpPercap, y = lifeExp))
+p <- ggplot(gapminder, aes(x = gdpPercap, y = lifeExp))
 p <- p + scale_x_log10()
 p <- p + aes(color = continent) + geom_point() + geom_smooth(lwd = 3, se = FALSE)
 p
