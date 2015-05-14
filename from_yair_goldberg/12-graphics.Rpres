@@ -1,0 +1,387 @@
+<style>
+  .reveal pre {font-size: 12px;}
+</style>
+
+Graphics
+====
+
+Agenda
+===
+
+- Grammer of Graphics
+
+- Using ggplot2
+
+The following presentation is based on the [ggplot2 tutorial](https://github.com/jennybc/ggplot2-tutorial) written by Prof. Jennifer Bryan. 
+
+ggplot2 (wiki)
+===
+
+- ggplot2 is a data visualization package
+
+- Created by Hadley Wickham in 2005
+
+- ggplot2 is an implementation of Leland Wilkinson's Grammar of Graphics scheme
+
+- ggplot2 has grown in use to become one of the most popular R packages.
+
+Grammar of Graphics
+===
+
+**Elements**
+
+- `data`: The data that you want to visualise
+
+- `aes`: Aesthetic mappings
+describing how variables in the data are mapped to aesthetic attributes
+
+  + horizontalposition (`x`)
+  + vertical position (`y`)
+  + colour
+  + size
+
+Grammar of Graphics
+===
+
+**Elements**
+
+- `geoms`: Geometric objects that represent what you actually see on
+the plot
+  + points
+  + lines
+  + polygons
+  + bars
+
+Grammar of Graphics
+===
+
+**Elements**
+
+
+- `stats`: Statistics transformations
+  + binning and counting observations to create a histogram,
+  + summarising a 2d relationship with a linear model
+  + `stats` are optional
+
+
+Grammar of Graphics
+===
+
+**Elements**
+
+- `scales`: related the data to the aesthetic
+
+- `coord`: A coordinate systemthat describes how data coordinates are
+mapped to the plane of the graphic.
+
+- `facet`: A faceting specification describes how to break up the data into subsets.
+
+Grammar of Graphics
+===
+
+**Layers**
+
+A layer is composed of four parts:
+- data and aesthetic mapping,
+- a statistical transformation (`stat`),
+- a geometric object (`geom`)
+-  a position adjustment.
+
+A plot is constructed by adding layers to each other
+
+ggplot2
+===
+
+Load the library
+```{r}
+library(ggplot2)
+```
+
+Read data
+```{r}
+gdURL <- "http://tiny.cc/gapminder"
+gDat <- read.table(file = gdURL,header=T,sep = "\t")
+str(gDat)
+```
+
+Scatterplot
+===
+Creating a plot object
+```{r}
+p <- ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) # just initializes
+```
+
+
+Scatterplot
+```{r}
+p + geom_point()
+#p + layer(geom = "point")
+```
+
+Data transformation
+===
+Log transformation ... quick and dirty
+```{r}
+ggplot(gDat, aes(x = log10(gdpPercap), y = lifeExp)) + geom_point()
+```
+
+Data transformation
+===
+A better way to log transform
+```{r}
+p + geom_point() + scale_x_log10()
+```
+
+
+===
+Let's make that stick
+```{r}
+p <- p + scale_x_log10()
+```
+
+common workflow: gradually build up the plot you want
+
+Re-define the object `p` as you develop "keeper" commands
+
+===
+Convey continent by color: MAP continent variable to aesthetic color
+```{r}
+p + geom_point(aes(color = continent))
+
+```
+
+===
+In full detail, up to now:
+```
+ggplot(gDat, aes(x = gdpPercap, y = lifeExp, color = continent)) +
+  geom_point() + scale_x_log10()
+
+```
+
+===
+Address overplotting: SET alpha transparency and size to a value
+```{r}
+p + geom_point(alpha = (1/3), size = 3)
+
+```
+
+Curves
+===
+Add a fitted curve or line
+```{r}
+p + geom_point() + geom_smooth()
+```
+
+Curves
+===
+```{r}
+p + geom_point() + geom_smooth(lwd = 3,
+se = FALSE)
+```
+
+Curves
+===
+```{r}
+p + geom_point() + geom_smooth(lwd = 3, se = FALSE, method = "lm")
+
+```
+
+Curves
+===
+
+Return to continents:
+```{r}
+p + aes(color = continent) + geom_point() + geom_smooth(lwd = 3, se = FALSE)
+```
+
+Facets
+===
+
+Facetting: another way to exploit a factor
+
+```{r}
+p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent)
+
+```
+
+Facets
+===
+```{r}
+p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent) +
+  geom_smooth(lwd = 2, se = FALSE)
+```
+
+===
+
+Exercises:
+
+- Plot lifeExp against year
+
+- Make mini-plots, split out by continent
+
+- Add a fitted smooth and/or linear regression, with or without facetting
+
+
+
+
+
+
+
+
+
+
+===
+
+Plot `lifeExp` against `year`
+
+```{r}
+(p1 <- ggplot(gDat, aes(x = year, y = lifeExp)) + geom_point())
+
+```
+
+===
+Make mini-plots, split out by continent
+```{r}
+p1 + facet_wrap(~ continent)
+
+```
+
+===
+Add a fitted smooth and/or linear regression, without facetting
+```{r}
+p1 + geom_smooth(se = FALSE, lwd = 2) +
+  geom_smooth(se = FALSE, method ="lm", color = "orange", lwd = 2)
+```
+
+
+===
+Add a fitted smooth and/or linear regression, with facetting
+
+```{r}
+p1+ geom_smooth(se = FALSE, lwd = 2) +
+  facet_wrap(~ continent)
+
+```
+
+===
+Last bit on scatterplots
+
+- How can we "connect the dots" for one country?   make a spaghetti plot?
+```{r}
+p1 + facet_wrap(~ continent) + geom_line() # uh, no
+```
+
+===
+```{r}
+p1 + facet_wrap(~ continent) + geom_line(aes(group = country)) # yes!
+```
+
+===
+
+```{r}
+p1 + facet_wrap(~ continent) + geom_line(aes(group = country)) +
+  geom_smooth(se = FALSE, lwd = 2)
+
+```
+
+
+Subsetting data
+===
+
+- `ggplot()` does not have a `subset =` argument
+
+- Do that 'on the fly' with `subset(..., subset = ...)`
+
+```{r}
+ggplot(subset(gDat, country == "Zimbabwe"),
+       aes(x = year, y = lifeExp)) + geom_line() + geom_point()
+
+```
+
+===
+Let just look at four countries
+```{r}
+jCountries <- c("Canada", "Rwanda", "Cambodia", "Mexico")
+ggplot(subset(gDat, country %in% jCountries),
+       aes(x = year, y = lifeExp, color = country)) + geom_line() + geom_point()
+```
+
+===
+When you really care, make your legend easy to navigate
+
+This means visual order = data order = factor level order
+
+```{r}
+ggplot(subset(gDat, country %in% jCountries),
+       aes(x = year, y = lifeExp, color = reorder(country, -1 * lifeExp, max))) + geom_line() + geom_point()
+
+```
+
+
+===
+Another approach to overplotting
+```{r}
+ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) + scale_x_log10() + geom_bin2d()
+
+```
+
+Stripplots
+===
+
+Stripplots: univariate scatterplots (but w/ ways to also convey 1+ factors)
+
+```{r}
+ggplot(gDat, aes(x = continent, y = lifeExp)) + geom_point()
+```
+
+Stripplots
+===
+We have an overplotting problem; need to spread things out
+```{r}
+ggplot(gDat, aes(x = continent, y = lifeExp)) + geom_jitter()
+
+```
+
+===
+We can have less jitter in `x`, no jitter in `y`, more alpha transparency
+```{r}
+ggplot(gDat, aes(x = continent, y = lifeExp)) +
+  geom_jitter(position = position_jitter(width = 0.1, height = 0), alpha = 1/4)
+
+```
+Boxplots
+===
+Boxplots -- covered properly elsewhere
+
+```{r}
+ggplot(gDat, aes(x = continent, y = lifeExp)) + geom_boxplot()
+
+```
+Boxplots
+===
+Raw data AND boxplots
+```{r}
+ggplot(gDat, aes(x = continent, y = lifeExp)) +
+  geom_boxplot(outlier.colour = "hotpink") +
+  geom_jitter(position = position_jitter(width = 0.1, height = 0), alpha = 1/4)
+
+```
+
+===
+Superpose a statistical summary
+```{r}
+ggplot(gDat, aes(x = continent, y = lifeExp)) +
+  geom_jitter(position = position_jitter(width = 0.1), alpha = 1/4) +
+  stat_summary(fun.y = median, colour = "red", geom = "point", size = 5)
+
+```
+
+===
+Let's reorder the continent factor based on `lifeExp`
+```{r}
+ggplot(gDat, aes(reorder(x = continent, lifeExp), y = lifeExp)) +
+  geom_jitter(position = position_jitter(width = 0.1), alpha = 1/4) +
+  stat_summary(fun.y = median, colour = "red", geom = "point", size = 5)
+
+```
+
