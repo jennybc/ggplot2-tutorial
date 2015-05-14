@@ -1,0 +1,10 @@
+---
+output:
+  html_document:
+    keep_md: TRUE
+---
+
+```{r, results ="asis", echo = FALSE}
+fig_files <- dir(pattern = "png$") 
+cat(paste0("* ", fig_files, " ![](", fig_files, ")\n"))
+```
