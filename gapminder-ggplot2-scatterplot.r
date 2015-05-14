@@ -109,6 +109,11 @@ y + facet_wrap(~ continent) + geom_line(aes(group = country)) +
 ggplot(subset(gapminder, country == "Zimbabwe"),
        aes(x = year, y = lifeExp)) + geom_line() + geom_point()
 
+#' or could do with dplyr::filter
+suppressPackageStartupMessages(library(dplyr))
+ggplot(gapminder %>% filter(country == "Zimbabwe"),
+       aes(x = year, y = lifeExp)) + geom_line() + geom_point()
+
 #' let just look at four countries
 jCountries <- c("Canada", "Rwanda", "Cambodia", "Mexico")
 ggplot(subset(gapminder, country %in% jCountries),
@@ -122,6 +127,7 @@ ggplot(subset(gapminder, country %in% jCountries),
 
 #' another approach to overplotting
 #' ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) +
-ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) + scale_x_log10() + geom_bin2d()
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) +
+  scale_x_log10() + geom_bin2d()
 
 sessionInfo()

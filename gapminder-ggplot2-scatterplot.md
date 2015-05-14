@@ -230,6 +230,17 @@ ggplot(subset(gapminder, country == "Zimbabwe"),
 
 ![](figure/scatterplot-unnamed-chunk-16-1.png) 
 
+or could do with dplyr::filter
+
+
+```r
+suppressPackageStartupMessages(library(dplyr))
+ggplot(gapminder %>% filter(country == "Zimbabwe"),
+       aes(x = year, y = lifeExp)) + geom_line() + geom_point()
+```
+
+![](figure/scatterplot-unnamed-chunk-17-1.png) 
+
 let just look at four countries
 
 
@@ -239,7 +250,7 @@ ggplot(subset(gapminder, country %in% jCountries),
        aes(x = year, y = lifeExp, color = country)) + geom_line() + geom_point()
 ```
 
-![](figure/scatterplot-unnamed-chunk-17-1.png) 
+![](figure/scatterplot-unnamed-chunk-18-1.png) 
 
 when you really care, make your legend easy to navigate  
 this means visual order = data order = factor level order
@@ -251,17 +262,18 @@ ggplot(subset(gapminder, country %in% jCountries),
   geom_line() + geom_point()
 ```
 
-![](figure/scatterplot-unnamed-chunk-18-1.png) 
+![](figure/scatterplot-unnamed-chunk-19-1.png) 
 
 another approach to overplotting
 ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) +
 
 
 ```r
-ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) + scale_x_log10() + geom_bin2d()
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) +
+  scale_x_log10() + geom_bin2d()
 ```
 
-![](figure/scatterplot-unnamed-chunk-19-1.png) 
+![](figure/scatterplot-unnamed-chunk-20-1.png) 
 
 ```r
 sessionInfo()
@@ -278,23 +290,24 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] mgcv_1.8-4      nlme_3.1-118    gapminder_0.1.0 ggplot2_1.0.0  
-## [5] knitr_1.10.5   
+## [1] dplyr_0.4.1.9000 mgcv_1.8-4       nlme_3.1-118     gapminder_0.1.0 
+## [5] ggplot2_1.0.0    knitr_1.10.5    
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] colorspace_1.2-4  digest_0.6.8      evaluate_0.7     
-##  [4] formatR_1.2       grid_3.1.2        gtable_0.1.2     
-##  [7] htmltools_0.2.6   labeling_0.3      lattice_0.20-29  
-## [10] magrittr_1.5      MASS_7.3-35       Matrix_1.1-4     
-## [13] munsell_0.4.2     plyr_1.8.2        proto_0.3-10     
-## [16] Rcpp_0.11.6       reshape2_1.4.0.99 rmarkdown_0.5.1  
-## [19] scales_0.2.4      stringi_0.4-1     stringr_1.0.0    
-## [22] tools_3.1.2       yaml_2.1.13
+##  [1] assertthat_0.1    colorspace_1.2-4  DBI_0.3.1        
+##  [4] digest_0.6.8      evaluate_0.7      formatR_1.2      
+##  [7] grid_3.1.2        gtable_0.1.2      htmltools_0.2.6  
+## [10] labeling_0.3      lattice_0.20-29   lazyeval_0.1.10  
+## [13] magrittr_1.5      MASS_7.3-35       Matrix_1.1-4     
+## [16] munsell_0.4.2     parallel_3.1.2    plyr_1.8.2       
+## [19] proto_0.3-10      Rcpp_0.11.6       reshape2_1.4.0.99
+## [22] rmarkdown_0.5.1   scales_0.2.4      stringi_0.4-1    
+## [25] stringr_1.0.0     tools_3.1.2       yaml_2.1.13
 ```
 
 
 ---
 title: "gapminder-ggplot2-scatterplot.r"
 author: "jenny"
-date: "Thu May 14 12:37:24 2015"
+date: "Thu May 14 12:47:03 2015"
 ---
