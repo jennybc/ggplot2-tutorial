@@ -1,3 +1,4 @@
+Jenny Bryan  
 
 
 
@@ -13,24 +14,25 @@ pick a way to load the data
 
 
 ```r
-gdURL <- "http://tiny.cc/gapminder"
-gDat <- read.delim(file = gdURL) 
-gDat <- read.delim("gapminderDataFiveYear.tsv")
-str(gDat)
+#gdURL <- "http://tiny.cc/gapminder"
+#gapminder <- read.delim(file = gdURL) 
+#gapminder <- read.delim("gapminderDataFiveYear.tsv")
+library(gapminder)
+str(gapminder)
 ```
 
 ```
 ## 'data.frame':	1704 obs. of  6 variables:
 ##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
 ##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ year     : num  1952 1957 1962 1967 1972 ...
 ##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
 ##  $ gdpPercap: num  779 821 853 836 740 ...
 ```
 
 ```r
-ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) # nothing to plot yet!
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) # nothing to plot yet!
 ```
 
 ```
@@ -38,7 +40,7 @@ ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) # nothing to plot yet!
 ```
 
 ```r
-p <- ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) # just initializes
+p <- ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) # just initializes
 ```
 
 scatterplot
@@ -48,7 +50,7 @@ scatterplot
 p + geom_point()
 ```
 
-![plot of chunk unnamed-chunk-3](figure/scatterplot-unnamed-chunk-3.png) 
+![](figure/scatterplot-unnamed-chunk-3-1.png) 
 
 ```r
 #p + layer(geom = "point")
@@ -58,10 +60,10 @@ log transformation ... quick and dirty
 
 
 ```r
-ggplot(gDat, aes(x = log10(gdpPercap), y = lifeExp)) + geom_point()
+ggplot(gapminder, aes(x = log10(gdpPercap), y = lifeExp)) + geom_point()
 ```
 
-![plot of chunk unnamed-chunk-4](figure/scatterplot-unnamed-chunk-4.png) 
+![](figure/scatterplot-unnamed-chunk-4-1.png) 
 
 a better way to log transform
 
@@ -70,7 +72,7 @@ a better way to log transform
 p + geom_point() + scale_x_log10()
 ```
 
-![plot of chunk unnamed-chunk-5](figure/scatterplot-unnamed-chunk-5.png) 
+![](figure/scatterplot-unnamed-chunk-5-1.png) 
 
 let's make that stick
 
@@ -88,14 +90,14 @@ convey continent by color: MAP continent variable to aesthetic color
 p + geom_point(aes(color = continent))
 ```
 
-![plot of chunk unnamed-chunk-7](figure/scatterplot-unnamed-chunk-71.png) 
+![](figure/scatterplot-unnamed-chunk-7-1.png) 
 
 ```r
-ggplot(gDat, aes(x = gdpPercap, y = lifeExp, color = continent)) +
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   geom_point() + scale_x_log10() # in full detail, up to now
 ```
 
-![plot of chunk unnamed-chunk-7](figure/scatterplot-unnamed-chunk-72.png) 
+![](figure/scatterplot-unnamed-chunk-7-2.png) 
 
 address overplotting: SET alpha transparency and size to a value
 
@@ -104,7 +106,7 @@ address overplotting: SET alpha transparency and size to a value
 p + geom_point(alpha = (1/3), size = 3)
 ```
 
-![plot of chunk unnamed-chunk-8](figure/scatterplot-unnamed-chunk-8.png) 
+![](figure/scatterplot-unnamed-chunk-8-1.png) 
 
 add a fitted curve or line
 
@@ -113,27 +115,19 @@ add a fitted curve or line
 p + geom_point() + geom_smooth()
 ```
 
-```
-## geom_smooth: method="auto" and size of largest group is >=1000, so using gam with formula: y ~ s(x, bs = "cs"). Use 'method = x' to change the smoothing method.
-```
-
-![plot of chunk unnamed-chunk-9](figure/scatterplot-unnamed-chunk-91.png) 
+![](figure/scatterplot-unnamed-chunk-9-1.png) 
 
 ```r
 p + geom_point() + geom_smooth(lwd = 3, se = FALSE)
 ```
 
-```
-## geom_smooth: method="auto" and size of largest group is >=1000, so using gam with formula: y ~ s(x, bs = "cs"). Use 'method = x' to change the smoothing method.
-```
-
-![plot of chunk unnamed-chunk-9](figure/scatterplot-unnamed-chunk-92.png) 
+![](figure/scatterplot-unnamed-chunk-9-2.png) 
 
 ```r
 p + geom_point() + geom_smooth(lwd = 3, se = FALSE, method = "lm")
 ```
 
-![plot of chunk unnamed-chunk-9](figure/scatterplot-unnamed-chunk-93.png) 
+![](figure/scatterplot-unnamed-chunk-9-3.png) 
 
 revive our interest in continents!
 
@@ -142,11 +136,7 @@ revive our interest in continents!
 p + aes(color = continent) + geom_point() + geom_smooth(lwd = 3, se = FALSE)
 ```
 
-```
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-```
-
-![plot of chunk unnamed-chunk-10](figure/scatterplot-unnamed-chunk-10.png) 
+![](figure/scatterplot-unnamed-chunk-10-1.png) 
 
 facetting: another way to exploit a factor
 
@@ -155,22 +145,14 @@ facetting: another way to exploit a factor
 p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent)
 ```
 
-![plot of chunk unnamed-chunk-11](figure/scatterplot-unnamed-chunk-111.png) 
+![](figure/scatterplot-unnamed-chunk-11-1.png) 
 
 ```r
 p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent) +
   geom_smooth(lwd = 2, se = FALSE)
 ```
 
-```
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-```
-
-![plot of chunk unnamed-chunk-11](figure/scatterplot-unnamed-chunk-112.png) 
+![](figure/scatterplot-unnamed-chunk-11-2.png) 
 
 exercises:  
 * plot lifeExp against year  
@@ -181,10 +163,10 @@ plot lifeExp against year
 
 
 ```r
-(y <- ggplot(gDat, aes(x = year, y = lifeExp)) + geom_point())
+(y <- ggplot(gapminder, aes(x = year, y = lifeExp)) + geom_point())
 ```
 
-![plot of chunk unnamed-chunk-12](figure/scatterplot-unnamed-chunk-12.png) 
+![](figure/scatterplot-unnamed-chunk-12-1.png) 
 
 make mini-plots, split out by continent
 
@@ -193,7 +175,7 @@ make mini-plots, split out by continent
 y + facet_wrap(~ continent)
 ```
 
-![plot of chunk unnamed-chunk-13](figure/scatterplot-unnamed-chunk-13.png) 
+![](figure/scatterplot-unnamed-chunk-13-1.png) 
 
 add a fitted smooth and/or linear regression, w/ or w/o facetting
 
@@ -203,26 +185,14 @@ y + geom_smooth(se = FALSE, lwd = 2) +
   geom_smooth(se = FALSE, method ="lm", color = "orange", lwd = 2)
 ```
 
-```
-## geom_smooth: method="auto" and size of largest group is >=1000, so using gam with formula: y ~ s(x, bs = "cs"). Use 'method = x' to change the smoothing method.
-```
-
-![plot of chunk unnamed-chunk-14](figure/scatterplot-unnamed-chunk-141.png) 
+![](figure/scatterplot-unnamed-chunk-14-1.png) 
 
 ```r
 y + geom_smooth(se = FALSE, lwd = 2) +
   facet_wrap(~ continent)
 ```
 
-```
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-```
-
-![plot of chunk unnamed-chunk-14](figure/scatterplot-unnamed-chunk-142.png) 
+![](figure/scatterplot-unnamed-chunk-14-2.png) 
 
 last bit on scatterplots  
 how can we "connect the dots" for one country?  
@@ -233,28 +203,20 @@ i.e. make a spaghetti plot?
 y + facet_wrap(~ continent) + geom_line() # uh, no
 ```
 
-![plot of chunk unnamed-chunk-15](figure/scatterplot-unnamed-chunk-151.png) 
+![](figure/scatterplot-unnamed-chunk-15-1.png) 
 
 ```r
 y + facet_wrap(~ continent) + geom_line(aes(group = country)) # yes!
 ```
 
-![plot of chunk unnamed-chunk-15](figure/scatterplot-unnamed-chunk-152.png) 
+![](figure/scatterplot-unnamed-chunk-15-2.png) 
 
 ```r
 y + facet_wrap(~ continent) + geom_line(aes(group = country)) +
   geom_smooth(se = FALSE, lwd = 2) 
 ```
 
-```
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-```
-
-![plot of chunk unnamed-chunk-15](figure/scatterplot-unnamed-chunk-153.png) 
+![](figure/scatterplot-unnamed-chunk-15-3.png) 
 
 note about subsetting data
 sadly, ggplot() does not have a 'subset =' argument  
@@ -262,51 +224,51 @@ so do that 'on the fly' with subset(..., subset = ...)
 
 
 ```r
-ggplot(subset(gDat, country == "Zimbabwe"),
+ggplot(subset(gapminder, country == "Zimbabwe"),
        aes(x = year, y = lifeExp)) + geom_line() + geom_point()
 ```
 
-![plot of chunk unnamed-chunk-16](figure/scatterplot-unnamed-chunk-16.png) 
+![](figure/scatterplot-unnamed-chunk-16-1.png) 
 
 let just look at four countries
 
 
 ```r
 jCountries <- c("Canada", "Rwanda", "Cambodia", "Mexico")
-ggplot(subset(gDat, country %in% jCountries),
+ggplot(subset(gapminder, country %in% jCountries),
        aes(x = year, y = lifeExp, color = country)) + geom_line() + geom_point()
 ```
 
-![plot of chunk unnamed-chunk-17](figure/scatterplot-unnamed-chunk-17.png) 
+![](figure/scatterplot-unnamed-chunk-17-1.png) 
 
 when you really care, make your legend easy to navigate  
 this means visual order = data order = factor level order
 
 
 ```r
-ggplot(subset(gDat, country %in% jCountries),
+ggplot(subset(gapminder, country %in% jCountries),
        aes(x = year, y = lifeExp, color = reorder(country, -1 * lifeExp, max))) +
   geom_line() + geom_point()
 ```
 
-![plot of chunk unnamed-chunk-18](figure/scatterplot-unnamed-chunk-18.png) 
+![](figure/scatterplot-unnamed-chunk-18-1.png) 
 
 another approach to overplotting
-ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) +
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) +
 
 
 ```r
-ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) + scale_x_log10() + geom_bin2d()
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) + scale_x_log10() + geom_bin2d()
 ```
 
-![plot of chunk unnamed-chunk-19](figure/scatterplot-unnamed-chunk-19.png) 
+![](figure/scatterplot-unnamed-chunk-19-1.png) 
 
 ```r
 sessionInfo()
 ```
 
 ```
-## R version 3.1.0 (2014-04-10)
+## R version 3.1.2 (2014-10-31)
 ## Platform: x86_64-apple-darwin10.8.0 (64-bit)
 ## 
 ## locale:
@@ -316,13 +278,23 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] mgcv_1.7-29     nlme_3.1-117    ggplot2_0.9.3.1 knitr_1.5.33   
+## [1] mgcv_1.8-4      nlme_3.1-118    gapminder_0.1.0 ggplot2_1.0.0  
+## [5] knitr_1.10.5   
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] colorspace_1.2-4 digest_0.6.4     evaluate_0.5.5   formatR_0.10    
-##  [5] grid_3.1.0       gtable_0.1.2     labeling_0.2     lattice_0.20-29 
-##  [9] markdown_0.6.5   MASS_7.3-33      Matrix_1.1-3     munsell_0.4.2   
-## [13] plyr_1.8.1       proto_0.3-10     Rcpp_0.11.1      reshape2_1.4    
-## [17] scales_0.2.4     stringr_0.6.2    tools_3.1.0
+##  [1] colorspace_1.2-4  digest_0.6.8      evaluate_0.7     
+##  [4] formatR_1.2       grid_3.1.2        gtable_0.1.2     
+##  [7] htmltools_0.2.6   labeling_0.3      lattice_0.20-29  
+## [10] magrittr_1.5      MASS_7.3-35       Matrix_1.1-4     
+## [13] munsell_0.4.2     plyr_1.8.2        proto_0.3-10     
+## [16] Rcpp_0.11.6       reshape2_1.4.0.99 rmarkdown_0.5.1  
+## [19] scales_0.2.4      stringi_0.4-1     stringr_1.0.0    
+## [22] tools_3.1.2       yaml_2.1.13
 ```
 
+
+---
+title: "gapminder-ggplot2-scatterplot.r"
+author: "jenny"
+date: "Thu May 14 12:37:24 2015"
+---
