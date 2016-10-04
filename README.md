@@ -7,6 +7,7 @@ Offered
 
   * Thursday May 15, 2014 [under the auspices of the Vancouver R Users Group and hosted at the BC Centres for Disease Control](http://www.meetup.com/Vancouver-R-Users-Group-data-analysis-statistics/events/164489182/)
   * Thursday May 14, 2015 [as part of the Workshop on Big Data in Environmental Science at UBC](http://www.pims.math.ca/scientific-event/150511-bdes)
+  * Tuesday July 19, 2016 [Data Carpentry at the University of Zurich](https://markrobinsonuzh.github.io/2016-07-18-zurich/)
   
 There are some slides.
 
