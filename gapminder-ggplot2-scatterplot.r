@@ -1,36 +1,35 @@
 #' ---
 #' author: "Jenny Bryan"
-#' output:
-#'   html_document:
-#'     keep_md: TRUE
+#' output: github_document
 #' ---
 
 #+ setup, include = FALSE
 library(knitr)
 opts_chunk$set(fig.path = 'figure/scatterplot-', error = TRUE)
 
-#' Note: this HTML is made by applying `knitr::spin()` to an R script. So the
-#' narrative is very minimal.
+#' Note: this report is made by rendering an R script. So the narrative is very
+#' minimal.
 
+library(tibble)
 library(ggplot2)
 
-#' pick a way to load the data
-#gdURL <- "http://tiny.cc/gapminder"
-#gapminder <- read.delim(file = gdURL) 
-#gapminder <- read.delim("gapminderDataFiveYear.tsv")
+#' Load the [`gapminder`](https://github.com/jennybc/gapminder) data package.
 library(gapminder)
-str(gapminder)
+gapminder
 
 ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) # nothing to plot yet!
+
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) +
+  geom_point()
 
 p <- ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) # just initializes
 
 #' scatterplot
 p + geom_point()
-#p + layer(geom = "point")
 
 #' log transformation ... quick and dirty
-ggplot(gapminder, aes(x = log10(gdpPercap), y = lifeExp)) + geom_point()
+ggplot(gapminder, aes(x = log10(gdpPercap), y = lifeExp)) +
+  geom_point()
 #' a better way to log transform
 p + geom_point() + scale_x_log10()
 
@@ -41,7 +40,8 @@ p <- p + scale_x_log10()
 
 #' convey continent by color: MAP continent variable to aesthetic color
 p + geom_point(aes(color = continent))
-ggplot(gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) +
+## add summary(p)!
+plot(gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   geom_point() + scale_x_log10() # in full detail, up to now
 
 #' address overplotting: SET alpha transparency and size to a value
@@ -53,20 +53,66 @@ p + geom_point() + geom_smooth(lwd = 3, se = FALSE)
 p + geom_point() + geom_smooth(lwd = 3, se = FALSE, method = "lm")
 
 #' revive our interest in continents!
-p + aes(color = continent) + geom_point() + geom_smooth(lwd = 3, se = FALSE)
+p + aes(color = continent) + geom_point() +
+  geom_smooth(lwd = 3, se = FALSE)
 
 #' facetting: another way to exploit a factor
-p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent)
-p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent) +
+p + geom_point(alpha = (1/3), size = 3) +
+  facet_wrap(~ continent)
+p + geom_point(alpha = (1/3), size = 3) +
+  facet_wrap(~ continent) +
   geom_smooth(lwd = 2, se = FALSE)
 
 #' exercises:  
 
 #' * plot lifeExp against year  
+ggplot(gapminder, aes(x = year, y = lifeExp,
+                      color = continent)) +
+  geom_jitter(alpha = 1/3, size = 3)
 
-#' * make mini-plots, split out by continent  
+#' * make mini-plots, split out by continent
+#' HINT: use facet_wrap() 
+ggplot(gapminder, aes(x = year, y = lifeExp,
+                      color = continent)) +
+  facet_wrap(~ continent, scales = "free_x") +
+  geom_jitter(alpha = 1/3, size = 3) +
+  scale_color_manual(values = continent_colors)
+
+ggplot(subset(gapminder, continent != "Oceania"),
+       aes(x = year, y = lifeExp, group = country, color = country)) +
+  geom_line(lwd = 1, show_guide = FALSE) + facet_wrap(~ continent) +
+  scale_color_manual(values = country_colors) +
+  #scale_color_brewer()+
+  theme_bw() + theme(strip.text = element_text(size = rel(1.1)))
+
 
 #' * add a fitted smooth and/or linear regression, w/ or w/o facetting  
+
+ggplot(gapminder, aes(x = year, y = lifeExp,
+                      color = continent)) +
+  facet_wrap(~ continent, scales = "free_x") +
+  geom_jitter(alpha = 1/3, size = 3) +
+  scale_color_manual(values = continent_colors) +
+  geom_smooth(lwd = 2)
+
+
+#' * use `dplyr::filter()` to plot lifeExp against
+#' year for just one country or continent
+jc <- "Cambodia"
+gapminder %>% 
+  filter(country == jc) %>% 
+  ggplot(aes(x = year, y = lifeExp)) +
+  labs(title = jc) +
+  geom_line()
+
+rwanda <- gapminder %>%
+  filter(country == "Rwanda")
+p <- ggplot(rwanda, aes(x = year, y = lifeExp)) +
+  labs(title = "Rwanda") +
+  geom_line()
+print(p)
+ggsave("rwanda.pdf")
+ggsave("rwanda.pdf",plot = p)
 
 #' * other ideas?  
 
